@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="ActivityPicker">
     <div v-if="currentStep === 0">
       <p>What activity?</p>
-      <input v-model="activity" type="text" />
+      <input class="ActivityPicker-input" v-model="activity" type="text" />
       <custom-button
         label="Confirm"
         @click="selectActivity(activity)"
@@ -17,16 +17,20 @@
     </div>
     <div v-if="currentStep === 1">
       <p>What score?</p>
-      <custom-button
-        v-for="index in 10"
-        :key="index"
-        :label="`${index}`"
-        @click="selectScore(index)"
-      />
+      <div class="ActivityPicker-score">
+        <custom-button
+          class="ActivityPicker-button"
+          v-for="index in 10"
+          :key="index"
+          :label="`${index}`"
+          @click="selectScore(index)"
+        />
+      </div>
     </div>
     <div v-if="currentStep === 2">
       <p>What category?</p>
       <custom-button
+        class="ActivityPicker-button"
         v-for="c in categories"
         :key="c"
         :label="c"
@@ -75,4 +79,37 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.ActivityPicker {
+  width: 100%;
+}
+
+.ActivityPicker-input {
+  border: 1px solid #4775ae;
+  border-radius: 15px;
+  background-color: #f1f4f9;
+  font-size: 1.6rem;
+  height: 45px;
+  margin: 0 0 24px;
+  text-align: center;
+  width: 80%;
+}
+
+.ActivityPicker-input:active {
+  border: 2px solid #253d5b;
+}
+
+.ActivityPicker-button {
+  margin: 4px;
+}
+
+.ActivityPicker-score {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.ActivityPicker-button:last-child {
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+</style>

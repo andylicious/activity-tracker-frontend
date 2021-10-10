@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div class="ActivityForm">
     <date-picker v-if="currentStep === 0" @submit="setDate" />
     <time-span-picker v-if="currentStep === 1" @submit="setStartTime" />
     <activity-picker v-if="currentStep === 2" @submit="setActivity" />
+    <activity-picker v-if="currentStep === 3" @submit="setActivity" />
   </div>
 </template>
 
@@ -33,7 +34,7 @@ export default {
   },
   methods: {
     nextStep() {
-      if (this.currentStep <= 2) {
+      if (this.currentStep <= 3) {
         this.currentStep += 1;
       }
     },
@@ -56,10 +57,18 @@ export default {
       this.activity.score = score;
       this.activity.category = category;
 
-      this.submit();
+      this.nextStep();
     },
   },
 };
 </script>
 
-<style></style>
+<style scoped>
+.ActivityForm {
+  margin-top: 56px;
+}
+
+.ActivityForm >>> p {
+  font-size: 1.6rem;
+}
+</style>

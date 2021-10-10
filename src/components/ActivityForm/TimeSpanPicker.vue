@@ -4,23 +4,28 @@
       <p>What hour?</p>
       <custom-button
         v-for="index in 24"
-        :key="index"
-        :label="`${index}`"
-        @click="selectHour(index)"
+        class="TimeSpanPicker-Button"
+        :key="index - 1"
+        :label="`${index - 1}`"
+        @click="selectHour(index - 1)"
       />
     </div>
     <div v-if="currentStep === 1">
       <p>What minute?</p>
-      <custom-button
-        v-for="item in minuteOptions"
-        :key="item.value"
-        :label="item.rep"
-        @click="selectMinutes(item.value)"
-      />
+      <div class="MinuteButtons">
+        <custom-button
+          class="TimeSpanPicker-Button"
+          v-for="item in minuteOptions"
+          :key="item.value"
+          :label="item.rep"
+          @click="selectMinutes(item.value)"
+        />
+      </div>
     </div>
     <div v-if="currentStep === 2">
       <p>How long?</p>
       <custom-button
+        class="TimeSpanPicker-Button"
         v-for="item in durationOptions"
         :key="item.value"
         :label="item.rep"
@@ -91,4 +96,13 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.TimeSpanPicker-Button {
+  margin: 4px;
+}
+
+.MinuteButtons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+</style>

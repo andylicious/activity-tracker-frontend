@@ -18,6 +18,24 @@ export default {
 
 <style>
 .CustomButton {
-  background-color: purple;
+  background-color: #253d5b;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #fff;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-size: 1.4em;
+  font-weight: 600;
+  min-width: 150px;
+  height: 45px;
+}
+
+.CustomButton:active {
+  background-color: #4775ae;
+}
+
+.CustomButton:disabled {
+  background-color: #b7cae1;
+  cursor: not-allowed;
 }
 </style>

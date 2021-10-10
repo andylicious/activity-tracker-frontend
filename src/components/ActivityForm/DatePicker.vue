@@ -1,8 +1,16 @@
 <template>
-  <div>
-    <p>What date?</p>
-    <custom-button label="Today" @click="selectDate(today)" />
-    <custom-button label="Yesterday" @click="selectDate(yesterday)" />
+  <div class="DatePicker">
+    <p>What day?</p>
+    <custom-button
+      class="DatePicker-button"
+      label="Today"
+      @click="selectDate(today)"
+    />
+    <custom-button
+      class="DatePicker-button"
+      label="Yesterday"
+      @click="selectDate(yesterday)"
+    />
   </div>
 </template>
 
@@ -30,4 +38,15 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.DatePicker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.DatePicker-button {
+  margin: 12px 0;
+}
+</style>
