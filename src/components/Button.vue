@@ -1,12 +1,12 @@
 <template>
-  <button class="Button" @click="$emit('click')">
+  <button class="CustomButton">
     {{ label }}
   </button>
 </template>
 
 <script>
 export default {
-  name: "Button",
+  name: "CustomButton",
   props: {
     label: {
       type: String,
@@ -17,7 +17,7 @@ export default {
 </script>
 
 <style>
-.Button {
+.CustomButton {
   background-color: purple;
 }
 </style>
