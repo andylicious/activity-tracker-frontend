@@ -2,15 +2,11 @@
   <div>
     <date-picker v-if="currentStep === 0" @submit="setDate" />
     <time-span-picker v-if="currentStep === 1" @submit="setStartTime" />
-    <activity-picker v-if="currentStep === 2" />
-
-    <custom-button v-if="currentStep === 2" label="Submit" @click="submit" />
-    <custom-button v-else label="Next step" @click="nextStep" />
+    <activity-picker v-if="currentStep === 2" @submit="setActivity" />
   </div>
 </template>
 
 <script>
-import CustomButton from "../Button";
 import DatePicker from "./DatePicker";
 import TimeSpanPicker from "./TimeSpanPicker";
 import ActivityPicker from "./ActivityPicker";
@@ -19,7 +15,6 @@ export default {
   name: "ActivityForm",
   components: {
     ActivityPicker,
-    CustomButton,
     DatePicker,
     TimeSpanPicker,
   },
@@ -29,7 +24,7 @@ export default {
         startTime: "",
         duration: "",
         type: "",
-        ranking: "",
+        score: "",
         category: "",
       },
       date: "",
@@ -43,7 +38,8 @@ export default {
       }
     },
     submit() {
-      console.log("Submitting!");
+      console.log("Submitting!", { ...this.activity });
+      this.$router.push("/");
     },
     setDate(date) {
       this.date = date;
@@ -54,6 +50,13 @@ export default {
       this.activity.startTime = this.date;
       this.activity.duration = duration;
       this.nextStep();
+    },
+    setActivity({ activity, score, category }) {
+      this.activity.type = activity;
+      this.activity.score = score;
+      this.activity.category = category;
+
+      this.submit();
     },
   },
 };
