@@ -1,7 +1,7 @@
 <template>
   <div>
     <date-picker v-if="currentStep === 0" @submit="setDate" />
-    <time-span-picker v-if="currentStep === 1" />
+    <time-span-picker v-if="currentStep === 1" @submit="setStartTime" />
     <activity-picker v-if="currentStep === 2" />
 
     <custom-button v-if="currentStep === 2" label="Submit" @click="submit" />
@@ -26,12 +26,13 @@ export default {
   data() {
     return {
       activity: {
-        date: "",
-        timespan: "",
+        startTime: "",
+        duration: "",
         type: "",
         ranking: "",
         category: "",
       },
+      date: "",
       currentStep: 0,
     };
   },
@@ -45,7 +46,13 @@ export default {
       console.log("Submitting!");
     },
     setDate(date) {
-      this.activity.date = date;
+      this.date = date;
+      this.nextStep();
+    },
+    setStartTime({ startHour, startMinutes, duration }) {
+      this.date.setHours(startHour, startMinutes, 0);
+      this.activity.startTime = this.date;
+      this.activity.duration = duration;
       this.nextStep();
     },
   },
