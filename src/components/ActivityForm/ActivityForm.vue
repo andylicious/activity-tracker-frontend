@@ -3,14 +3,20 @@
     <date-picker v-if="currentStep === 0" @submit="setDate" />
     <time-span-picker v-if="currentStep === 1" @submit="setStartTime" />
     <activity-picker v-if="currentStep === 2" @submit="setActivity" />
-    <activity-picker v-if="currentStep === 3" @submit="setActivity" />
+    <summary-page
+      v-if="currentStep === 3"
+      :activity="activity"
+      @confirm="submit"
+    />
   </div>
 </template>
 
 <script>
+import getActivityEndTime from "../../libs/utils/getActivityEndTime";
 import DatePicker from "./DatePicker";
 import TimeSpanPicker from "./TimeSpanPicker";
 import ActivityPicker from "./ActivityPicker";
+import SummaryPage from "./SummaryPage";
 
 export default {
   name: "ActivityForm",
@@ -18,11 +24,13 @@ export default {
     ActivityPicker,
     DatePicker,
     TimeSpanPicker,
+    SummaryPage,
   },
   data() {
     return {
       activity: {
         startTime: "",
+        endTime: "",
         duration: "",
         type: "",
         score: "",
@@ -50,6 +58,7 @@ export default {
       this.date.setHours(startHour, startMinutes, 0);
       this.activity.startTime = this.date;
       this.activity.duration = duration;
+      this.activity.endTime = getActivityEndTime(this.date, duration);
       this.nextStep();
     },
     setActivity({ activity, score, category }) {
