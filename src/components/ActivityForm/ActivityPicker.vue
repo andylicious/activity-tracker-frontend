@@ -3,16 +3,19 @@
     <div v-if="currentStep === 0">
       <p>What activity?</p>
       <input class="ActivityPicker-input" v-model="activity" type="text" />
+      <div class="ActivityPicker-ConfirmButton">
+        <custom-button
+          label="Confirm"
+          @click="selectActivity(activity)"
+          :disabled="activity === ''"
+        />
+      </div>
       <custom-button
-        label="Confirm"
-        @click="selectActivity(activity)"
-        :disabled="activity === ''"
-      />
-      <custom-button
-        v-for="a in activities"
-        :key="a"
-        :label="a"
-        @click="selectActivity(a)"
+        v-for="a in filteredActivities"
+        class="ActivityPicker-button"
+        :key="a.type"
+        :label="a.type"
+        @click="selectActivity(a.type)"
       />
     </div>
     <div v-if="currentStep === 1">
@@ -62,6 +65,16 @@ export default {
       default: () => [],
     },
   },
+  computed: {
+    filteredActivities() {
+      if (this.activity !== "") {
+        return this.activities.filter((a) => {
+          return a.type.toLowerCase().includes(this.activity.toLowerCase());
+        });
+      }
+      return this.activities;
+    },
+  },
   methods: {
     selectActivity(activity) {
       this.activity = activity;
@@ -97,6 +110,10 @@ export default {
 
 .ActivityPicker-input:active {
   border: 2px solid #253d5b;
+}
+
+.ActivityPicker-ConfirmButton {
+  margin-bottom: 16px;
 }
 
 .ActivityPicker-button {

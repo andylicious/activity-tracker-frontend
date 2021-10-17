@@ -2,7 +2,11 @@
   <div class="ActivityForm">
     <date-picker v-if="currentStep === 0" @submit="setDate" />
     <time-span-picker v-if="currentStep === 1" @submit="setStartTime" />
-    <activity-picker v-if="currentStep === 2" @submit="setActivity" />
+    <activity-picker
+      v-if="currentStep === 2"
+      :activities="commonActivities"
+      @submit="setActivity"
+    />
     <summary-page
       v-if="currentStep === 3"
       :activity="activity"
@@ -25,6 +29,12 @@ export default {
     DatePicker,
     TimeSpanPicker,
     SummaryPage,
+  },
+  props: {
+    commonActivities: {
+      type: Array,
+      default: () => [],
+    },
   },
   data() {
     return {
