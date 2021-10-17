@@ -29,8 +29,8 @@ export default {
   data() {
     return {
       activity: {
-        startTime: "",
-        endTime: "",
+        start_time: "",
+        end_time: "",
         duration: "",
         type: "",
         score: "",
@@ -47,7 +47,7 @@ export default {
       }
     },
     submit() {
-      console.log("Submitting!", { ...this.activity });
+      this.$emit("submit", this.activity);
       this.$router.push("/");
     },
     setDate(date) {
@@ -56,9 +56,9 @@ export default {
     },
     setStartTime({ startHour, startMinutes, duration }) {
       this.date.setHours(startHour, startMinutes, 0);
-      this.activity.startTime = this.date;
+      this.activity.start_time = this.date;
       this.activity.duration = duration;
-      this.activity.endTime = getActivityEndTime(this.date, duration);
+      this.activity.end_time = getActivityEndTime(this.date, duration);
       this.nextStep();
     },
     setActivity({ activity, score, category }) {

@@ -1,17 +1,24 @@
 <template>
   <div>
     <h1>New activity</h1>
-    <activity-form />
+    <activity-form @submit="submitActivity" />
   </div>
 </template>
 
 <script>
+import axios from "axios";
 import ActivityForm from "../components/ActivityForm/ActivityForm";
+
 export default {
   name: "RegisterActivity",
   components: { ActivityForm },
-  data() {
-    return { steps: [] };
+  methods: {
+    async submitActivity(activity) {
+      await axios.post(
+        `${process.env.VUE_APP_API_BASE_URL}activities/`,
+        activity
+      );
+    },
   },
 };
 </script>

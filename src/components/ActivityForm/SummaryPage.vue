@@ -3,8 +3,8 @@
     <p>Activity: {{ activity.type }}</p>
     <p>Score: {{ activity.score }}</p>
     <p>Category: {{ activity.category }}</p>
-    <p>Start: {{ activity.startTime }}</p>
-    <p>Start: {{ activity.endTime }}</p>
+    <p>Start: {{ activity.start_time }}</p>
+    <p>Start: {{ activity.end_time }}</p>
     <p>Duration: {{ activity.duration }}</p>
     <custom-button label="Confirm" @click="$emit('confirm')" />
   </div>
