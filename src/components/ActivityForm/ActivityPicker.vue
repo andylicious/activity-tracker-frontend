@@ -103,11 +103,6 @@ export default {
   margin: 4px;
 }
 
-.ActivityPicker-score {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-}
-
 .ActivityPicker-button:last-child {
   grid-column-start: 1;
   grid-column-end: 4;

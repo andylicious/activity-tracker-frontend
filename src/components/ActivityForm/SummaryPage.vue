@@ -1,16 +1,14 @@
 <template>
-  <div>
-    <p>Activity: {{ activity.type }}</p>
-    <p>Score: {{ activity.score }}</p>
-    <p>Category: {{ activity.category }}</p>
-    <p>Start: {{ activity.start_time }}</p>
-    <p>Start: {{ activity.end_time }}</p>
-    <p>Duration: {{ activity.duration }}</p>
+  <div class="SummaryPage">
+    <h2>Sumary:</h2>
+    <p>{{ timeSpan }}</p>
+    <p>{{ activity.type }}, {{ activity.score }}, {{ activity.category }}</p>
     <custom-button label="Confirm" @click="$emit('confirm')" />
   </div>
 </template>
 
 <script>
+import utils from "../../libs/utils";
 import CustomButton from "../Button";
 
 export default {
@@ -22,7 +20,19 @@ export default {
       required: true,
     },
   },
+  computed: {
+    timeSpan() {
+      return utils.getFormattedTimeSpan(
+        this.activity.start_time,
+        this.activity.end_time
+      );
+    },
+  },
 };
 </script>
 
-<style></style>
+<style scoped>
+.SummaryPage {
+  padding: 0 16px;
+}
+</style>

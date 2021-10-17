@@ -14,10 +14,15 @@ export default {
   components: { ActivityForm },
   methods: {
     async submitActivity(activity) {
-      await axios.post(
-        `${process.env.VUE_APP_API_BASE_URL}activities/`,
-        activity
-      );
+      try {
+        await axios.post(
+          `${process.env.VUE_APP_API_BASE_URL}activities/`,
+          activity
+        );
+      } catch (e) {
+        console.error(e);
+        alert("Failed to save");
+      }
     },
   },
 };
