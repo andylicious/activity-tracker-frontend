@@ -11,6 +11,7 @@
 <script>
 import axios from "axios";
 import ActivityForm from "../components/ActivityForm/ActivityForm";
+import { LOCAL_STORAGE_TOKEN } from "../constants";
 
 export default {
   name: "RegisterActivity",
@@ -23,9 +24,11 @@ export default {
   methods: {
     async submitActivity(activity) {
       try {
+        const token = localStorage.getItem(LOCAL_STORAGE_TOKEN);
         await axios.post(
           `${process.env.VUE_APP_API_BASE_URL}activities/`,
-          activity
+          activity,
+          { headers: { Authorization: `Bearer ${token}` } }
         );
       } catch (e) {
         console.error(e);
@@ -35,8 +38,10 @@ export default {
   },
   async mounted() {
     try {
+      const token = localStorage.getItem(LOCAL_STORAGE_TOKEN);
       const response = await axios.get(
-        `${process.env.VUE_APP_API_BASE_URL}activities/common/`
+        `${process.env.VUE_APP_API_BASE_URL}activities/common/`,
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       this.commonActivities = response.data;
     } catch {

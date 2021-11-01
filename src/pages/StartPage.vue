@@ -8,6 +8,7 @@
 <script>
 import CustomButton from "../components/Button";
 import axios from "axios";
+import { LOCAL_STORAGE_TOKEN } from "../constants";
 
 export default {
   name: "StartPage",
@@ -16,7 +17,10 @@ export default {
   },
   async mounted() {
     try {
-      await axios.get(`${process.env.VUE_APP_API_BASE_URL}activities/common`);
+      const token = localStorage.getItem(LOCAL_STORAGE_TOKEN);
+      await axios.get(`${process.env.VUE_APP_API_BASE_URL}activities/common`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
     } catch (e) {
       console.log("No auth!", e.response.status);
       if (e.response.status === 401) {
